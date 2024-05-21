@@ -1,5 +1,6 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:review_native_state_management/app/pages/widgets/imc_gauge.dart';
     
 class LayoutPage extends StatefulWidget {
@@ -14,6 +15,24 @@ class _LayoutPageState extends State<LayoutPage> {
   final _formKey = GlobalKey<FormState>();
   final _pesoEC = TextEditingController();
   final _alturaEC = TextEditingController();
+
+  var imc = 0.0;
+
+  Future<void> _calcularIMC({
+    required double peso,
+    required double altura,
+  }) async {
+
+    setState(() {
+      imc = 0;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      // imc = peso / pow(altura, 2);
+    });
+  }
 
   @override
   void dispose() {
@@ -99,7 +118,24 @@ class _LayoutPageState extends State<LayoutPage> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final formValid = _formKey.currentState?.validate() ?? false;
+
+                    if(formValid) {
+                      final formatter = NumberFormat.simpleCurrency(
+                        locale: "pt_BR",
+                        decimalDigits: 2,
+                      );
+            
+                      double peso = formatter.parse(_pesoEC.text) as double;
+                      double altura = formatter.parse(_alturaEC.text) as double;
+
+                      _calcularIMC(
+                        peso: peso,
+                        altura: altura,
+                      );
+                    }
+                  },
                   child: const Text("CALCULAR IMC"),
                 ),
               ),
