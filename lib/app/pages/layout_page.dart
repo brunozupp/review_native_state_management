@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:review_native_state_management/app/pages/widgets/imc_gauge_range.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
     
-class SetStatePage extends StatefulWidget {
-  const SetStatePage({super.key});
+class LayoutPage extends StatefulWidget {
+  const LayoutPage({super.key});
 
   @override
-  State<SetStatePage> createState() => _SetStatePageState();
+  State<LayoutPage> createState() => _LayoutPageState();
 }
 
-class _SetStatePageState extends State<SetStatePage> {
+class _LayoutPageState extends State<LayoutPage> {
 
   final _pesoEC = TextEditingController();
   final _alturaEC = TextEditingController();
