@@ -47,17 +47,34 @@ class _BlocPatternPageState extends State<BlocPatternPage> {
               StreamBuilder<ImcBlocPatternState>(
                 stream: _controller.imc,
                 builder: (context, snapshot) {
-                  return switch(snapshot.data) {
-                    ImcBlocPatternDataState(imc: final data) => ImcGauge(
-                      imc: data,
-                    ),
-                    ImcBlocPatternLoadingState() || null => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+
+                  final double imc = switch(snapshot.data) {
+                    ImcBlocPatternDataState(imc: final data) => data,
+                    _ => 0,
                   };
+
+                  return ImcGauge(
+                    imc: imc,
+                  );
                 },
               ),
             
+              const SizedBox(
+                height: 20,
+              ),
+
+              StreamBuilder<ImcBlocPatternState>(
+                stream: _controller.imc, 
+                builder: (context, snapshot) {
+                  return switch(snapshot.data) {
+                    ImcBlocPatternLoadingState() => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    _ => const SizedBox.shrink(),
+                  };
+                }
+              ),
+
               const SizedBox(
                 height: 20,
               ),

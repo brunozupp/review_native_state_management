@@ -7,7 +7,7 @@ class ImcBlocPatternController {
 
   // Caso eu tivesse mais de uma StreamBuilder na minha tela escutando o mesmo cara
   // eu precisaria adicionar o .broadcast no final para indicar multiplas saidas
-  final _imcStreamController = StreamController<ImcBlocPatternState>()
+  final _imcStreamController = StreamController<ImcBlocPatternState>.broadcast()
     ..add(ImcBlocPatternDataState(imc: 0));
 
   Stream<ImcBlocPatternState> get imc => _imcStreamController.stream;
